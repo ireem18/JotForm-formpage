@@ -4,20 +4,20 @@ import axios from 'axios';
 class Search extends React.Component {
   state = {
     query: '',
-    books: []
+    contents: []
   }
 
   getInfo = () => {
-    let filteredBooks = [];
+    let filteredcontents = [];
   
-    for (let i=0; i<this.props.books.length; i++){
-      if( this.props.books[i].title.toLowerCase().indexOf(this.search.value.toLowerCase())!==-1) {
-        filteredBooks.push(this.props.books[i]);
+    for (let i=0; i<this.props.contents.length; i++){
+      if( this.props.contents[i].title.toLowerCase().indexOf(this.search.value.toLowerCase())!==-1) {
+        filteredcontents.push(this.props.contents[i]);
       }
     }
     
-    console.log(this.props.books, this.search.value)
-    this.props.setParentState({books: filteredBooks});
+    console.log(this.props.contents, this.search.value)
+    this.props.setParentState({contents: filteredcontents});
   }
 
   handleInputChange = (e) => {
@@ -45,7 +45,7 @@ class Search extends React.Component {
           ref={input => this.search = input}
           onChange={ (e) => {this.handleInputChange(e) } }
         />
-        <hr/>
+       <hr style={{backgroundColor:"#FF7F00",height:"1px"}}/>
       </form>
       </div>
       </div>

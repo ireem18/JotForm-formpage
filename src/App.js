@@ -2,45 +2,41 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import Search from './components/Search';
 import Footer from './components/Footer';
-import BookPage from './components/BookPage';
+import Forms from './components/Forms';
 
 class App extends Component {
    constructor(props) {
     super(props);
     this.state = {
-     books: []
+     contents: []
     };
   }
   
   getBook = async e => {
     const bookName = e.target.elements.bookName.value;
     e.preventDefault();
-    console.log(bookName, e.target)
     const api_call = await fetch
-    (`https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=Uzdb4AYvpoK7vxbTbTbGH2f8gKL8sQ3i&q`)
+    (`https://api.jotform.com/user/forms?apiKey=0db00cc496eed9b622b66dc269d05d3a`)
     const data = await api_call.json();
-    this.setState({ books: data.results.books });
-   console.log(this.state.books)
+    this.setState({ contents: data.content });
+    console.log(this.state.contents)
   };
   
   async componentDidMount() {
     const api_call = await fetch(
-      `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=Uzdb4AYvpoK7vxbTbTbGH2f8gKL8sQ3i&q=${
-        this.state.bookName
-      }`
+      `https://api.jotform.com/user/forms?apiKey=0db00cc496eed9b622b66dc269d05d3a`
     );
     const data = await api_call.json();
-    console.log(data);
-    this.setState({ books: data.results.books });
+    this.setState({ contents: data.content });
   }
   
   render() {
-      const { books, searchTerm } = this.state;
+      const { contents, searchTerm } = this.state;
     return (
       <>
         <Header />
-        <Search books={books} setParentState={this.changeState} />
-        <BookPage books={books} />
+        <Search contents={contents} setParentState={this.changeState} />
+        <Forms contents={contents} />
         <Footer />
       </>
     );
@@ -52,44 +48,3 @@ class App extends Component {
 }
 export default App;
 
-
-
-/*
-componentDidMount() {
-    this.getBook();
-    handleTerm(e) {
-    this.setState({
-      searchTerm: e.target.value
-    });
-  }
-
-  handleSearch(e) {
-    e.preventDefault();
-
-    const { searchTerm } = this.state;
-
-   fetch(
-      `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=Uzdb4AYvpoK7vxbTbTbGH2f8gKL8sQ3i&q=${searchTerm}`
-    )
-      .then(res => res.json())
-      .then(data => this.setState({ books:data.results.books }))
-      .catch(err => console.error(err));
-
-    this.setState({ searchTerm: '' });
-  }
-
-  /* 
-  componentDidMount = () => {
-    const json = localStorage.getItem("books");
-    const books = JSON.parse(json);
-    this.setState({books})
-  }
-  componentDidUpdate = () => {
-    const books = JSON.stringify(this.state.books);
-    localStorage.setItem("books",books);
-  }
-  
-
-  }
-
-*/

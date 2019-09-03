@@ -1,13 +1,13 @@
 import React from 'react';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import App from "../App";
-import Book from "./Book";
+import Form from "./Form";
 
 const Router = () => (
   <BrowserRouter> 
       <Switch>
         <Route path="/" component={App} exact/>
-        <Route path="/book/:rank" component={Book}/>
+        <Route path="/content/:id" component={Form}/>
       </Switch>
   </BrowserRouter>
 );
